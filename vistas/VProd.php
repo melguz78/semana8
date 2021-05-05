@@ -21,6 +21,12 @@ $dao= new DAOProductos();
 
 <script>
 $(document).ready(function(){
+$('#btnNuevo').on('click', function(){
+    $('#btnModificar').hide();
+    $('#btnEliminar').hide();
+    $('btnGuardar').show();
+
+})
 
 })
 
