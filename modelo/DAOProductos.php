@@ -1,31 +1,30 @@
 <?php
 
 //incluir archivo credenciales para conexion a base de datos
-include ('credenciales.php');
-include ('Productos.php');
+include_once 'credenciales.php';
+include_once 'Productos.php';
 
 class DAOProductos {
 
-    private$con;
+   private $con;
 
-public function __construct(){
+public function  __construct(){
 
 }
- 
+
 
 private function conectar(){
-    try{
-        $this->$con = new mysqli(SERVER, USUARIO, PASS, BD);
-    }
+try{
+  $this-> con = new mysqli(SERVER, USUARIO, PASS, BD);
 
-    catch(Exception $ex) {
-        echo $ex->getTraceAsString()
-    }
+}catch(Exception $ex) {
+ echo $ex->getTraceAsString();
 }
- 
+}
+
 private function desconectar(){
 
-    $this->$con-> close();
+$this->con->Close();
 }
 
 
@@ -41,19 +40,19 @@ $this->desconectar();
 
 $tabla="<table class='table'> <thead> <tr><th>codigo</th> <th>nombre</th> <th>precio</th> <th>existencia</th> <th>CodCat</th> </tr> </thead> <tbody> </tbody>";
 
-while ($fila= fetch_assoc($resultado)){
+while ($fila= mysqli_fetch_assoc ($resultado)){
    
     $tabla .= "<tr>";
-    $tabla .= "<td>".$fila["codigo"]." </td>";
-    $tabla .= "<td>".$fila["nombre"]."  </td>";
-    $tabla .= "<td>".$fila["precio"]."  </td>";
-    $tabla .= "<td>".$fila["existencia"]."  </td>";
-    $tabla .= "<td>".$fila["codCat"]."  </td>";
+    $tabla .= "<td>".$fila["codigo"]."</td>";
+    $tabla .= "<td>".$fila["nombre"]."</td>";
+    $tabla .= "<td>".$fila["precio"]."</td>";
+    $tabla .= "<td>".$fila["existencia"]."</td>";
+    $tabla .= "<td>".$fila["codCat"]."</td>";
     $tabla .= "</tr>";
 
 }
 
-$tabla .= "</tbody></table>"
+$tabla .= "</tbody></table>";
 $resultado->close();
 return $tabla;
 }
@@ -83,8 +82,7 @@ public function eliminar($obj){
 
     $prod=$obj;
 
-        $sql="delete from productos where codigo=". $pord->getCodigo();
-
+        $sql="delete from productos where codigo=". $prod->getCodigo();
         $this->conectar();
       if($this->con->query($sql)){
         echo "<script> alert('Eliminado con exito!') </script>";
@@ -99,7 +97,7 @@ public function eliminar($obj){
 
 
 
-
+  
     public function modificar($obj){
 
         $prod = new Productos ('', '','','','');
@@ -118,8 +116,8 @@ public function eliminar($obj){
     
           $this->desconectar();
         }
-    
-    
+ 
+
 }
 
 
